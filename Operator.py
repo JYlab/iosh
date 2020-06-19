@@ -17,8 +17,10 @@ class Operator(object):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.ip , self.port))
         print("connected")
+
         s.send(packet)
         print("packet :  "+packet)
+        
         recv = s.recv(4)
         print("recv data : %s" % recv)
 
@@ -29,8 +31,7 @@ class Operator(object):
         opcode = 0
         packet_size = 9
 
-        packet += struct.pack(">BII", opcode, 1, 1 )
-        # self.send_message(packet_size)
+        packet = struct.pack(">BBII", packet_size, opcode, int(offset), int(change) )
         self.send_message(packet)
     
     # TODO
