@@ -29,9 +29,11 @@ class Operator(object):
     # opcode : 0x00 
     def memory_write(self, offset, change):
         opcode = 0
-        packet_size = 9
+        # 1 + 4 + 4
+        # 1 + 8 + 8
+        packet_size = 17
 
-        packet = struct.pack(">BBII", packet_size, opcode, int(offset), int(change) )
+        packet = struct.pack("<BBQQ", packet_size, opcode, int(offset, 16), int(change, 16) )
         self.send_message(packet)
     
     # TODO
