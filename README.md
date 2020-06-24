@@ -1,13 +1,13 @@
-## iOSH
+## [iOSH]
 
 iOS Hacking tool
 
-## How To Use
+## [How To Use]
 
-### Inject Agent first 
+### +Inject Agent first
 python3 iosh.py --ip=[jailbroken iPhone IP]  --package=[target's package name]
 
-### Select Operation
+### +Select Operation
 #### 1. memory_write
 - python3 iosh.py --ip=[jailbroken iPhone IP] --operation=="memory_write" --data1=[target's offset] --data2=[change data (4byte) ] 
 - TODO: I will patch it so that I can specify the data2 size
