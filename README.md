@@ -1,6 +1,6 @@
 ## [iOSH]
 
-iOS Hacking tool
+Dynamic iOS Hacking tool
 
 ## [How To Use]
 
