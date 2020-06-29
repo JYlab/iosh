@@ -9,7 +9,7 @@ python3 iosh.py --ip=[jailbroken iPhone IP]  --package=[target's package name]
 
 ### [+]Select Operation
 #### 1. memory_write
-- python3 iosh.py --ip=[jailbroken iPhone IP] --operation=="memory_write" --data1=[target's offset] --data2=[change data (4byte) ] 
+- python3 iosh.py --ip=[jailbroken iPhone IP] --operation="memory_write" --data1=[target's offset] --data2=[change data (4byte) ] 
 - TODO: I will patch it so that I can specify the data2 size
 - Sample Screenshot [https://github.com/JYlab/iosh/tree/master/screenshot/memory_write]
 - It makes it very easy to convert arm to hex -> https://armconverter.com/ 
