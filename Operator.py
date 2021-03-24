@@ -19,32 +19,59 @@ class Operator(object):
         print("connected")
 
         s.send(packet)
-        print("packet :  "+packet)
+        print("packet : ")
+        print(packet)
         
         recv = s.recv(4)
         print("recv data : %s" % recv)
 
 
-    # TODO
-    # opcode : 0x00 
-    def memory_write(self, offset, change):
-        opcode = 0
-        # 1 + 4 + 4
-        # 1 + 8 + 8
+    def memory_write(self, opcode, offset, change):
+        # 1 + 8 + 8 => sizeof(opcode) + sizeof(offset) + sizeof(change) 
         packet_size = 17
 
         packet = struct.pack("<BBQQ", packet_size, opcode, int(offset, 16), int(change, 16) )
         self.send_message(packet)
-    
-    # TODO
-    def message_hooking(self, data):
-        print("")
 
-    # TODO
-    def api_hooking(self, data):
-        print("")
+
+    def memory_scan(self, opcode, target, resetFlag):
+        # 1 + 8 + 1 => sizeof(opcode) + sizeof(target) + sizeof(resetFlag) 
+        packet_size = 10
+
+        # print("opcode :" + opcode )
+        # print("target :" + target )
+        # print("resetFlag :" + resetFlag )
+
+        packet = struct.pack("<BBQB", packet_size, opcode, int(target, 16), int(resetFlag, 16) )
+        self.send_message(packet)
+
+
+    def memory_write_by_raw(self, opcode, raw_address, change):
+        # 1 + 8 + 8 => sizeof(opcode) + sizeof(raw_address) + sizeof(change) 
+        packet_size = 17
+
+        packet = struct.pack("<BBQQ", packet_size, opcode, int(raw_address, 16), int(change, 16) )
+        self.send_message(packet)
+    
 
     def doProcess(self, operation):
+
+        # operation.data1 : offset
+        # operation.data2 : payload
         if operation.opcode == 'memory_write' and (operation.data1 != None) and (operation.data2 != None):
             print("call memory_write")
-            self.memory_write(operation.data1, operation.data2)
+            opcode = 0
+            self.memory_write(opcode, operation.data1, operation.data2)
+
+        # operation.data1 : The data we're looking for
+        if operation.opcode == 'memory_scan' and (operation.data1 != None) and (operation.data2 != None):
+            opcode = 1
+            print("call memory_scan")
+            self.memory_scan(opcode, operation.data1, operation.data2)
+
+        # operation.data1 : raw_address (get it to "memory_scan" operation)
+        # operation.data2 : payload
+        if operation.opcode == 'memory_write_by_raw' and (operation.data1 != None) and (operation.data2 != None):
+            print("call memory_write_by_raw")
+            opcode = 2
+            self.memory_write_by_raw(opcode, operation.data1, operation.data2)

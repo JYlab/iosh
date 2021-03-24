@@ -14,7 +14,7 @@ class Injector(object):
     def inject(self):
         # scp = "scp {src} {dst}"
         injectCommand = """expect <<EOF\n 
-                        spawn scp -oStrictHostKeyChecking=no {dylib} {plist} {target_plist} {usr}@{ip}:/Library/MobileSubstrate/DynamicLibraries/\n 
+                        spawn scp -oStrictHostKeyChecking=no -P 22 {dylib} {plist} {target_plist} {usr}@{ip}:/Library/MobileSubstrate/DynamicLibraries/\n 
                         expect \"password:\"\n
                                send \"{pw}\r\"\n 
                         expect eof\n

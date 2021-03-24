@@ -56,7 +56,7 @@ if __name__ == '__main__' :
         op = OPCode(args.operation, args.data1, args.data2)
         
     iosh = Iosh(args, op)
-    if op == None:
+    if (op == None) and (args.data1 == None) and (args.ip != None):
         print("INJECT START")
         iosh.inject_agent()
     else:
